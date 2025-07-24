@@ -10,7 +10,9 @@
   <meta name="author" content="Your Name">
   <link rel="stylesheet" href="styles.css">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7765489985293011"
-     crossorigin="anonymous"></script>   
+     crossorigin="anonymous"></script>  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+
 </head>
 <body>
   <h1>Free Online PDF Merger</h1>
@@ -30,8 +32,10 @@
   </div>
 
   <input type="file" accept=".pdf" multiple id="file-input">
-  <div id="drop-area">Drag and drop PDF files here or click to upload</div>
-  <ul id="file-list"></ul>
+  <div id="drop-area" class="drop-area">
+    <span>Drag and drop PDF files here or click to upload</span>
+  </div>
+  <!--ul id="file-list"></ul-->
   <p id="error" class="error"></p>
   <button onclick="mergeAndDownload()">Merge PDFs</button>
 
@@ -85,6 +89,7 @@
     }
 
     // Display and enable reordering of files
+    /*
     function updateFileList() {
       fileList.innerHTML = '';
       files.forEach((file, index) => {
@@ -105,6 +110,65 @@
         fileList.appendChild(li);
       });
     }
+    */
+
+    function updateFileList() {
+        dropArea.innerHTML = '';
+
+        files.forEach((file, index) => {
+            const item = document.createElement('div');
+            item.className = 'file-item';
+            item.draggable = true;
+            item.dataset.index = index;
+
+            const canvas = document.createElement('canvas');
+            canvas.width = 100;
+            canvas.height = 130;
+            item.appendChild(canvas);
+
+            const name = document.createElement('div');
+            name.textContent = file.name;
+            item.appendChild(name);
+
+            const removeBtn = document.createElement('button');
+            removeBtn.textContent = 'X';
+            removeBtn.onclick = () => removeFile(index);
+            item.appendChild(removeBtn);
+
+            // Drag events
+            item.addEventListener('dragstart', (e) => {
+            e.dataTransfer.setData('text/plain', index);
+            });
+            item.addEventListener('dragover', (e) => e.preventDefault());
+            item.addEventListener('drop', (e) => {
+            e.preventDefault();
+            const fromIndex = e.dataTransfer.getData('text/plain');
+            reorderFiles(fromIndex, index);
+            });
+
+            dropArea.appendChild(item);
+
+            // Generate thumbnail
+            const reader = new FileReader();
+            reader.onload = async function (e) {
+            const typedarray = new Uint8Array(e.target.result);
+            const pdf = await pdfjsLib.getDocument({ data: typedarray }).promise;
+            const page = await pdf.getPage(1);
+            const desiredWidth = 100;
+            const unscaledViewport = page.getViewport({ scale: 1 });
+            const scale = desiredWidth / unscaledViewport.width;
+            const viewport = page.getViewport({ scale });
+
+            const ctx = canvas.getContext('2d');
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+
+            await page.render({ canvasContext: ctx, viewport }).promise;
+            };
+            reader.readAsArrayBuffer(file);
+        });
+    }
+
 
     // Reorder files
     function reorderFiles(fromIndex, toIndex) {
