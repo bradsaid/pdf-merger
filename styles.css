@@ -5,19 +5,11 @@ body {
     max-width: 800px;
     margin: 0 auto;
     text-align: center;
-  }
-  h1, h2 {
+}
+h1, h2 {
     color: #333;
-  }
-  /*#drop-area {
-    border: 2px dashed #ccc;
-    padding: 20px;
-    margin: 20px 0;
-    min-height: 100px;
-    background: #f9f9f9;
-    cursor: pointer;
-  }*/
-  .drop-area {
+}
+.drop-area {
     border: 2px dashed #ccc;
     padding: 20px;
     margin: 20px 0;
@@ -31,19 +23,8 @@ body {
     align-items: center;
     min-height: 100px;
     white-space: nowrap;
-  }
-  /*.file-item {
-    padding: 10px;
-    border: 1px solid #aaa;
-    background: #f9f9f9;
-    border-radius: 4px;
-    cursor: grab;
-    min-width: 150px;
-    text-align: center;
-    white-space: normal;
-    word-break: break-word;
-  }*/
-  .file-item {
+}
+.file-item {
     white-space: normal;
     word-break: break-word;
     font-size: 11px;
@@ -54,15 +35,15 @@ body {
     background: #fff;
     border: 1px solid #ccc;
     border-radius: 4px;
-  }
-  .file-item canvas {
+}
+.file-item canvas {
     display: block;
     margin: 0 auto 5px;
     width: 100px;
     height: auto;
     border: 1px solid #eee;
-  }
-  .file-item button {
+}
+.file-item button {
     font-size: 12px;
     padding: 2px 6px;
     margin-top: 4px;
@@ -71,12 +52,11 @@ body {
     border: none;
     border-radius: 3px;
     cursor: pointer;
-  }
-  .file-item button:hover {
+}
+.file-item button:hover {
     background-color: #c0392b;
-  }
-
-  .spinner {
+}
+.spinner {
     border: 2px solid #ccc;
     border-top: 2px solid #666;
     border-radius: 50%;
@@ -84,23 +64,21 @@ body {
     height: 20px;
     animation: spin 0.8s linear infinite;
     margin: 0 auto 5px;
-  }
-  
-  @keyframes spin {
+}
+@keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
-  }
-  
-  #drop-area.dragover {
+}
+#drop-area.dragover {
     background: #e1e1e1;
     border-color: #007bff;
-  }
-  #file-list {
+}
+#file-list {
     list-style: none;
     padding: 0;
     margin: 20px 0;
-  }
-  #file-list li {
+}
+#file-list li {
     padding: 10px;
     background: #f1f1f1;
     margin: 5px 0;
@@ -108,31 +86,49 @@ body {
     justify-content: space-between;
     align-items: center;
     cursor: move;
-  }
-  button {
+}
+.button-container {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0;
+}
+#mergeButton {
     background: #007bff;
     color: white;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
     font-size: 16px;
-  }
-  button:hover {
+    border-radius: 5px;
+}
+#mergeButton:hover {
     background: #0056b3;
-  }
-  .error {
+}
+#clearButton {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+#clearButton:hover {
+    background: #c0392b;
+}
+.error {
     color: red;
     display: none;
-  }
-  .ad-container {
+}
+.ad-container {
     margin: 20px 0;
     min-height: 90px;
-  }
-  @media (max-width: 600px) {
+}
+@media (max-width: 600px) {
     body {
-      padding: 10px;
+        padding: 10px;
     }
-    button {
-      width: 100%;
+    #mergeButton, #clearButton {
+        width: 100%;
     }
-  }
+}
