@@ -2,6 +2,7 @@ const fileInput = document.querySelector('#file-input');
 const dropArea = document.querySelector('#drop-area');
 const fileList = document.querySelector('#file-list');
 const errorMsg = document.querySelector('#error');
+const clearButton = document.querySelector('#clearButton');
 let files = [];
 
 // File input handler
@@ -23,6 +24,9 @@ dropArea.addEventListener('drop', (e) => {
   handleFiles(e.dataTransfer.files);
 });
 dropArea.addEventListener('click', () => fileInput.click());
+
+// Clear queue button handler
+clearButton.addEventListener('click', clearQueue);
 
 function handleFiles(newFiles) {
     const acceptedFiles = Array.from(newFiles).filter(file =>
@@ -215,11 +219,4 @@ async function mergeAndDownload() {
 
 // Download the merged PDF
 function downloadPDF(pdfBytes, fileName) {
-  const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = fileName;
-  link.click();
-  URL.revokeObjectURL(url);
-}
+  const blob = new Blob([
