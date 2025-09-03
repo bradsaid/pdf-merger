@@ -58,15 +58,16 @@
     </script>
   </div>
 
-  <!--input type="file" accept=".pdf" multiple id="file-input"-->
   <input type="file" accept=".pdf,image/*" multiple id="file-input">
 
   <div id="drop-area" class="drop-area">
     <span>Drag and drop PDF & Images files here or click to upload</span>
   </div>
-  <!--ul id="file-list"></ul-->
   <p id="error" class="error"></p>
-  <button id="mergeButton" onclick="mergeAndDownload()">Merge PDFs</button>
+  <div class="button-container">
+    <button id="mergeButton" onclick="mergeAndDownload()">Merge PDFs</button>
+    <button id="clearButton" onclick="clearQueue()">Clear Queue</button>
+  </div>
 
   <h2>Why Use Our PDF Merger?</h2>
   <p>Combine up to 20 PDFs quickly and securely. All processing happens in your browser, ensuring your files stay private. Perfect for reports, invoices, or projects.</p>
