@@ -2,7 +2,6 @@ const fileInput = document.querySelector('#file-input');
 const dropArea = document.querySelector('#drop-area');
 const fileList = document.querySelector('#file-list');
 const errorMsg = document.querySelector('#error');
-const clearButton = document.querySelector('#clearButton');
 let files = [];
 
 // File input handler
@@ -24,9 +23,6 @@ dropArea.addEventListener('drop', (e) => {
   handleFiles(e.dataTransfer.files);
 });
 dropArea.addEventListener('click', () => fileInput.click());
-
-// Clear queue button handler
-clearButton.addEventListener('click', clearQueue);
 
 function handleFiles(newFiles) {
     const acceptedFiles = Array.from(newFiles).filter(file =>
@@ -106,6 +102,7 @@ function updateFileList() {
         };
         reader.readAsArrayBuffer(file);
         } else if (file.type.startsWith('image/')) {
+
             const canvas = document.createElement('canvas');
             const img = new Image();
             const reader = new FileReader();
@@ -129,17 +126,12 @@ function updateFileList() {
                 };
                 img.src = e.target.result;
             };
-            reader.readAsDataURL(file);
+
+        reader.readAsDataURL(file);
         }
     });
 }
 
-// Clear the file queue
-function clearQueue() {
-    files = [];
-    updateFileList();
-    fileInput.value = ''; // Reset the file input
-}
 
 // Reorder files
 function reorderFiles(fromIndex, toIndex) {
@@ -219,4 +211,11 @@ async function mergeAndDownload() {
 
 // Download the merged PDF
 function downloadPDF(pdfBytes, fileName) {
-  const blob = new Blob([
+  const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = fileName;
+  link.click();
+  URL.revokeObjectURL(url);
+}
