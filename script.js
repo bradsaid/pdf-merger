@@ -102,7 +102,6 @@ function updateFileList() {
         };
         reader.readAsArrayBuffer(file);
         } else if (file.type.startsWith('image/')) {
-
             const canvas = document.createElement('canvas');
             const img = new Image();
             const reader = new FileReader();
@@ -126,12 +125,17 @@ function updateFileList() {
                 };
                 img.src = e.target.result;
             };
-
-        reader.readAsDataURL(file);
+            reader.readAsDataURL(file);
         }
     });
 }
 
+// Clear the file queue
+function clearQueue() {
+    files = [];
+    updateFileList();
+    fileInput.value = ''; // Reset the file input
+}
 
 // Reorder files
 function reorderFiles(fromIndex, toIndex) {
