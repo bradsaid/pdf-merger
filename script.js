@@ -61,9 +61,17 @@ function updateFileList() {
         name.textContent = file.name;
         item.appendChild(name);
 
+        //const removeBtn = document.createElement('button');
+        //removeBtn.textContent = '✕';
+        //removeBtn.onclick = () => removeFile(index);
+        //item.appendChild(removeBtn);
+
         const removeBtn = document.createElement('button');
         removeBtn.textContent = '✕';
-        removeBtn.onclick = () => removeFile(index);
+        removeBtn.onclick = (e) => {
+            e.stopPropagation(); // Prevent click event from bubbling to dropArea
+            removeFile(index);
+        };
         item.appendChild(removeBtn);
 
         // Drag and drop handlers
