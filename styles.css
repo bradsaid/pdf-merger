@@ -135,4 +135,7 @@ body {
     button {
       width: 100%;
     }
+    #clearButton { 
+        margin-top: 10px; 
+    }
   }
