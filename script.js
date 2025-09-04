@@ -1,5 +1,3 @@
-const fileInput = document.querySelector('#file-input');
-const dropArea = document.querySelector('#drop-area');
 const fileList = document.querySelector('#file-list');
 const errorMsg = document.querySelector('#error');
 let files = [];
@@ -132,6 +130,11 @@ function updateFileList() {
     });
 }
 
+// Clear all selected files
+function clear_queue() {
+  files = [];
+  updateFileList();
+}
 
 // Reorder files
 function reorderFiles(fromIndex, toIndex) {
